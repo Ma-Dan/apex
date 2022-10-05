@@ -132,7 +132,7 @@ if (TORCH_MAJOR > 1) or (TORCH_MAJOR == 1 and TORCH_MINOR > 2):
 version_ge_1_5 = []
 if (TORCH_MAJOR > 1) or (TORCH_MAJOR == 1 and TORCH_MINOR > 4):
     version_ge_1_5 = ["-DVERSION_GE_1_5"]
-version_dependent_macros = version_ge_1_1 + version_ge_1_3 + version_ge_1_5
+version_dependent_macros = version_ge_1_1 + version_ge_1_3 + version_ge_1_5 + ['-D_ENABLE_EXTENDED_ALIGNED_STORAGE']
 
 if "--distributed_adam" in sys.argv:
     sys.argv.remove("--distributed_adam")
@@ -238,6 +238,7 @@ if "--cuda_ext" in sys.argv:
                 "cxx": ["-O3"] + version_dependent_macros,
                 "nvcc": append_nvcc_threads(["-O3"] + version_dependent_macros),
             },
+            extra_link_args=['cublas.lib', 'cublasLt.lib'],
         )
     )
     ext_modules.append(
@@ -248,6 +249,7 @@ if "--cuda_ext" in sys.argv:
                 "cxx": ["-O3"] + version_dependent_macros,
                 "nvcc": append_nvcc_threads(["-O3"] + version_dependent_macros),
             },
+            extra_link_args=['cublas.lib', 'cublasLt.lib'],
         )
     )
 
@@ -355,6 +357,7 @@ if "--cuda_ext" in sys.argv:
                         + cc_flag
                     ),
                 },
+                extra_link_args=['cublas.lib', 'cublasLt.lib'],
             )
         )
 

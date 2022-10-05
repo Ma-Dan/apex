@@ -20,6 +20,8 @@
 #define BIAS_RELU_BW_NTHREADS_Y 16 // backward number of thread in batch dim
 #define BIAS_RELU_RED_PER_THREAD 16 // backward minimal reduction length per thread
 
+typedef unsigned int uint;
+
 // move to a header later on
 #define ILP 4
 template<typename T>
